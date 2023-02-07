@@ -63,9 +63,8 @@ def get_loss(x, x_target):
     y = torch.clamp(y, 1e-8, 1 - 1e-8) # 0到1
 
     # loss
-    # marginal_likelihood2 = torch.sum(x_target * torch.log(y) + (1 - x_target) * torch.log(1 - y)) / batchsz
-    marginal_likelihood = -F.binary_cross_entropy(y, x_target, reduction='sum') / batchsz
-    # print(marginal_likelihood2.item(), marginal_likelihood.item())
+    # marginal_likelihood = -F.binary_cross_entropy(y, x_target, reduction='sum') / batchsz
+    marginal_likelihood = -F.mse_loss(y, x_target, reduction='sum') / batchsz
 
     KL_divergence = 0.5 * torch.sum(
                                 torch.pow(mu, 2) +

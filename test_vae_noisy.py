@@ -9,10 +9,19 @@ from tqdm import tqdm
 from torch.optim import Adam
 import torch.nn as nn
 
-# work_dir = './results_dim_20'
-work_dir = './workdir/2023-01-11_15-20-21'
-dir_en = '{}/encoder.pth.tar'.format(work_dir)
-dir_de = '{}/decoder.pth.tar'.format(work_dir)
+workdir = './workdir'
+import os
+dirs = os.listdir(workdir)
+for i, d in enumerate(dirs):
+  print('[{}] {}'.format(i, d))
+idx = int(input('index of dir to load:'))
+workdir = '{}/{}'.format(workdir, dirs[idx])
+print('loading models from {} ...'.format(workdir))
+# workdir = './results_dim_20'
+# workdir = './workdir/2023-01-11_15-20-21'
+
+dir_en = '{}/encoder.pth.tar'.format(workdir)
+dir_de = '{}/decoder.pth.tar'.format(workdir)
 
 device = torch.device('cuda:0')
 model_en = torch.load(dir_en).to(device)

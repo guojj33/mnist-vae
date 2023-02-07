@@ -21,8 +21,17 @@ def to_image(x_re):
 
 device = torch.device('cuda:0')
 
+workdir = './workdir'
+import os
+dirs = os.listdir(workdir)
+for i, d in enumerate(dirs):
+  print('[{}] {}'.format(i, d))
+idx = int(input('index of dir to load:'))
+workdir = '{}/{}'.format(workdir, dirs[idx])
+print('loading models from {} ...'.format(workdir))
 # workdir = './results_dim_20'
-workdir = './workdir/2023-01-11_15-20-21'
+# workdir = './workdir/2023-01-11_15-20-21'
+
 encoder = torch.load('{}/encoder.pth.tar'.format(workdir))
 decoder = torch.load('{}/decoder.pth.tar'.format(workdir))
 dim_z = decoder.dim_z
